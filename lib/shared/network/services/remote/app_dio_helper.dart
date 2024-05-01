@@ -1,9 +1,10 @@
-import '../../../constants/constants.dart';
+import '../../../../constants/constants.dart';
 import 'package:dio/dio.dart';
 
 class AppDioHelper {
-  static late Dio dio;
-  static init() {
+  late Dio dio;
+
+  AppDioHelper() {
     dio = Dio(
       BaseOptions(
         baseUrl: Constants.APP_BASE_URL,
@@ -13,15 +14,13 @@ class AppDioHelper {
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': Constants.lang,
+          'Accept': 'application/json',
         },
       ),
     );
-    dio.options.headers = {
-      'Accept': 'application/json',
-    };
   }
 
-  static Future<Response> getData({
+  Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
     String? token,
@@ -38,7 +37,7 @@ class AppDioHelper {
     return response;
   }
 
-  static Future<Response> postData({
+  Future<Response> postData({
     required String url,
     required Map<String, dynamic> data,
     Map<String, dynamic>? query,
@@ -58,7 +57,7 @@ class AppDioHelper {
     return response;
   }
 
-  static Future<Response> postFormData({
+  Future<Response> postFormData({
     required String url,
     required FormData formData,
     Map<String, dynamic>? query,
@@ -79,7 +78,7 @@ class AppDioHelper {
   }
 
   /// Put Data Function
-  static Future<Response> putData({
+  Future<Response> putData({
     required String url,
     Map<String, dynamic>? data,
     Map<String, dynamic>? query,
@@ -98,7 +97,7 @@ class AppDioHelper {
   }
 
   /// Delete data function
-  static Future<Response> deleteData({
+  Future<Response> deleteData({
     required String url,
     Map<String, dynamic>? data,
     Map<String, dynamic>? query,
@@ -115,11 +114,12 @@ class AppDioHelper {
     return response;
   }
 
-  static void _setTokenAuthorization(String? token) {
+  void _setTokenAuthorization(String? token) {
     dio.options.headers.addAll({'Authorization': 'Bearer $token'});
   }
 
-  static void _validateResponse(Response response) {
+  void _validateResponse(Response response) {
+    return;
     final data = response.data;
     if (data is Map) {
       if (data['errors'] != null) {
