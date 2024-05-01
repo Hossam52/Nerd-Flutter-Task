@@ -95,7 +95,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   children: <TextSpan>[
                     if (widget.isOptional)
                       TextSpan(
-                          text: ' (اختيارى)',
+                          text: ' (Optional)',
                           style:
                               getRegularStyle().copyWith(color: Colors.grey)),
                     if (widget.isRequired)
