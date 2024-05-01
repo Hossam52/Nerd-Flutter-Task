@@ -8,10 +8,11 @@ import 'package:nerd_hossam_task/bloc_observer.dart';
 import 'package:nerd_hossam_task/constants/constants.dart';
 import 'package:nerd_hossam_task/cubits/app_cubit/app_cubit.dart';
 import 'package:nerd_hossam_task/cubits/auth_cubit/auth_cubit.dart';
+import 'package:nerd_hossam_task/cubits/recipe_cubit/recipe_cubit.dart';
 import 'package:nerd_hossam_task/screens/auth/login_screen.dart';
-import 'package:nerd_hossam_task/shared/network/local/cache_helper.dart';
-import 'package:nerd_hossam_task/shared/network/remote/app_dio_helper.dart';
+import 'package:nerd_hossam_task/shared/network/services/local/cache_helper.dart';
 import 'package:nerd_hossam_task/shared/presentation/resourses/theme_manager.dart';
+import 'package:nerd_hossam_task/shared/service_locator.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -30,8 +31,10 @@ void main() async {
 
   await CacheHelper.init();
   Constants.token = await CacheHelper.getData(key: 'token');
-  AppDioHelper.init();
   Bloc.observer = MyBlocObserver();
+
+  setupLocator();
+
   runApp(const MyApp());
   // runApp(IAPTest());
 }
@@ -46,12 +49,13 @@ class MyApp extends StatelessWidget {
       builder: (_, child) => MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => AppCubit()),
+          BlocProvider(create: (context) => locator.get<RecipeCubit>()),
           BlocProvider(
             create: (context) => AuthCubit(),
           ),
         ],
         child: MaterialApp(
-          title: 'Al-Kamar',
+          title: 'NERD',
 
           debugShowCheckedModeBanner: false,
           theme: getApplicationTheme(),
