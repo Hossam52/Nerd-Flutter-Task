@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:nerd_hossam_task/cubits/auth_cubit/auth_cubit.dart';
 import 'package:nerd_hossam_task/cubits/auth_cubit/auth_states.dart';
 import 'package:nerd_hossam_task/screens/auth/widgets/remember_me_widget.dart';
+import 'package:nerd_hossam_task/screens/home/home_screen.dart';
 import 'package:nerd_hossam_task/shared/methods.dart';
 import 'package:nerd_hossam_task/shared/presentation/resourses/color_manager.dart';
 import 'package:nerd_hossam_task/shared/presentation/resourses/font_manager.dart';
@@ -123,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           CustomButton(
                             text: 'Login',
                             onPressed: () {
+                              Methods.navigateTo(context, HomeScreen());
                               if (formKey.currentState!.validate()) {
                                 AuthCubit.instance(context).login(
                                     emailController.text,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nerd_hossam_task/constants/constants.dart';
 import 'package:nerd_hossam_task/helpers/remember_helper.dart';
-import 'package:nerd_hossam_task/shared/network/local/cache_helper.dart';
+import 'package:nerd_hossam_task/shared/network/services/local/cache_helper.dart';
 
 import 'auth_states.dart';
 
