@@ -1,0 +1,3 @@
+class AppServices {
+  AppServices._();
+}
