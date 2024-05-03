@@ -4,7 +4,7 @@ This project is a comprehensive Flutter application for browsing, managing, and 
 
 ## Features
 
-- **Login Screen**: Users can log in with hardcoded credentials. The screen provides feedback for both valid and invalid credentials.
+- **Login Screen**: Users can log in with hardcoded credentials. The screen provides feedback for both valid and invalid credentials and provides remember me feature.
 - **Home Screen**:
   - Displays all recipes and favorites.
   - Users can refresh recipes manually.
