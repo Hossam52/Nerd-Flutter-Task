@@ -58,7 +58,9 @@ class MyApp extends StatelessWidget {
           title: 'NERD',
 
           debugShowCheckedModeBanner: false,
-          theme: getApplicationTheme(),
+          darkTheme: ThemeData.light(),
+
+          theme: ThemeData.dark(),
           locale: const Locale('en', 'us'),
           //           locale: const Locale('ar'),
           // supportedLocales: const [
