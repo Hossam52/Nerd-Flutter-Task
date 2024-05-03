@@ -81,3 +81,70 @@ ThemeData getApplicationTheme() {
       ),
       fontFamily: FontConstants.fontFamily);
 }
+
+ThemeData getDarkApplicationTheme() {
+  return ThemeData.dark().copyWith(
+    scaffoldBackgroundColor: ColorManager.primary,
+
+    //AppBar
+    appBarTheme:
+        AppBarTheme(centerTitle: true, backgroundColor: ColorManager.primary),
+    //Button Theme
+    buttonTheme: ButtonThemeData(
+        shape: const StadiumBorder(),
+        disabledColor: ColorManager.grey,
+        buttonColor: ColorManager.primary,
+        splashColor: ColorManager.primaryOpacity70),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+          textStyle: TextStyle(
+            color: ColorManager.white,
+          ),
+          backgroundColor: ColorManager.primary,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+    ),
+    // TextTheme
+    textTheme: TextTheme(
+        titleLarge: TextStyle(
+            color: ColorManager.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+        titleMedium: TextStyle(
+            color: ColorManager.lightGrey,
+            fontSize: 14,
+            fontWeight: FontWeight.normal),
+        bodyMedium: TextStyle(
+            color: ColorManager.cpationColor,
+            fontSize: 14,
+            fontWeight: FontWeight.normal),
+        bodyLarge: TextStyle(
+            color: ColorManager.grey,
+            fontSize: 14,
+            fontWeight: FontWeight.normal)),
+    //Input decoration theme
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(8),
+      hintStyle: TextStyle(color: ColorManager.grey),
+      labelStyle: TextStyle(color: ColorManager.darkGrey),
+      errorStyle: TextStyle(color: ColorManager.error),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.grey, width: 1.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      fillColor: ColorManager.fillColor,
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.grey, width: 1.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.error, width: 1.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.primary, width: 1.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  );
+}

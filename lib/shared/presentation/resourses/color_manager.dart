@@ -20,6 +20,7 @@ class ColorManager {
 
   static Color logout = HexColor.fromHex('#ff0000');
   static Color hintColor = Colors.white54;
+  static Color favoriteColor = Colors.red;
 }
 
 extension HexColor on Color {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nerd_hossam_task/bloc_observer.dart';
 import 'package:nerd_hossam_task/constants/constants.dart';
 import 'package:nerd_hossam_task/cubits/app_cubit/app_cubit.dart';
@@ -30,13 +31,14 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   await CacheHelper.init();
+  await Hive.initFlutter();
+  await Hive.openBox<bool>(Constants.favoriteBox);
   Constants.token = await CacheHelper.getData(key: 'token');
   Bloc.observer = MyBlocObserver();
 
   setupLocator();
 
   runApp(const MyApp());
-  // runApp(IAPTest());
 }
 
 class MyApp extends StatelessWidget {
@@ -58,9 +60,9 @@ class MyApp extends StatelessWidget {
           title: 'NERD',
 
           debugShowCheckedModeBanner: false,
-          darkTheme: ThemeData.light(),
+          darkTheme: getApplicationTheme(),
 
-          theme: ThemeData.dark(),
+          theme: getDarkApplicationTheme(),
           locale: const Locale('en', 'us'),
           //           locale: const Locale('ar'),
           // supportedLocales: const [
