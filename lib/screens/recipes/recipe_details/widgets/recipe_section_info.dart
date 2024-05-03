@@ -47,6 +47,6 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextWidget(
-        label: '$description:', fontSize: 18.sp, fontWeight: FontWeight.bold);
+        label: '$description:', fontSize: 14.sp, fontWeight: FontWeight.bold);
   }
 }

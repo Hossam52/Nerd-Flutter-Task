@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nerd_hossam_task/cubits/recipe_cubit/recipe_cubit.dart';
 import 'package:nerd_hossam_task/models/recipe_model.dart';
 import 'package:nerd_hossam_task/shared/methods.dart';
+import 'package:nerd_hossam_task/shared/presentation/resourses/color_manager.dart';
 import 'package:nerd_hossam_task/widgets/custom_image.dart';
 import 'package:nerd_hossam_task/widgets/text_widget.dart';
 
@@ -20,16 +22,24 @@ class RecipeDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: TextWidget(label: recipe.name),
         actions: [
-          TextWidget(
-            label: '(${recipe.favorites})',
-            fontWeight: FontWeight.bold,
-            color: Colors.red,
-            fontSize: 14.sp,
-          ),
-          IconButton(
-            icon: Icon(
-                recipe.highlighted ? Icons.favorite : Icons.favorite_border),
-            onPressed: () => toggleFavorite(recipe.id),
+          RecipeBlocBuilder(builder: (context, state) {
+            return TextWidget(
+              label: '(${recipe.favorites})',
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+              fontSize: 14.sp,
+            );
+          }),
+          RecipeBlocBuilder(
+            builder: (context, state) {
+              final isFavorite =
+                  RecipeCubit.instance(context).isRecipeFavorite(recipe.id);
+              return IconButton(
+                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                color: ColorManager.favoriteColor,
+                onPressed: () => toggleFavorite(context, !isFavorite),
+              );
+            },
           ),
         ],
       ),
@@ -48,9 +58,14 @@ class RecipeDetailsScreen extends StatelessWidget {
                   SizedBox(height: 10.h),
                   _displayRating(),
                   const Divider(),
-                  _GeneralInformationWidget(recipe: recipe),
-                  SizedBox(height: 10.h),
-                  _NutritionalInfo(recipe: recipe),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: _GeneralInformationWidget(recipe: recipe)),
+                      SizedBox(height: 10.h),
+                      Expanded(child: _NutritionalInfo(recipe: recipe)),
+                    ],
+                  ),
                   const Divider(),
                   RecipeSectionInfo(
                     description: 'Description',
@@ -115,8 +130,8 @@ class RecipeDetailsScreen extends StatelessWidget {
         : Container();
   }
 
-  void toggleFavorite(String id) {
-    // Implement your favorite toggle logic here
+  void toggleFavorite(BuildContext context, bool newValue) {
+    RecipeCubit.instance(context).toggleFavorite(recipe.id, newValue);
   }
 
   TextWidget _title() {

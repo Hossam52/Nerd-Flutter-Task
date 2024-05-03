@@ -26,3 +26,14 @@ class GetRecipiesSuccessState extends RecipeSuccessState {
 class GetRecipiesErrorState extends RecipeErrorState {
   GetRecipiesErrorState(super.error);
 }
+
+//ToggleFavorite online fetch data
+class ToggleFavoriteLoadingState extends RecipeStates {}
+
+class ToggleFavoriteSuccessState extends RecipeSuccessState {
+  ToggleFavoriteSuccessState([super.message = ""]);
+}
+
+class ToggleFavoriteErrorState extends RecipeErrorState {
+  ToggleFavoriteErrorState(super.error);
+}

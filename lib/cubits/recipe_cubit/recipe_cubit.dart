@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:nerd_hossam_task/constants/constants.dart';
+import 'package:nerd_hossam_task/cubits/recipe_cubit/recipe_states.dart';
 import 'package:nerd_hossam_task/models/recipe_model.dart';
 import 'package:nerd_hossam_task/shared/network/services/recipe_service_contract.dart';
-import './Recipe_states.dart';
 
 //Bloc builder and bloc consumer methods
 typedef RecipeBlocBuilder = BlocBuilder<RecipeCubit, RecipeStates>;
@@ -17,6 +19,9 @@ class RecipeCubit extends Cubit<RecipeStates> {
 
   static RecipeCubit instance(BuildContext context) =>
       BlocProvider.of<RecipeCubit>(context);
+
+  final Box<bool> _favoritesBox = Hive.box<bool>(Constants.favoriteBox);
+
   List<Recipe> get cachedRecipes =>
       _cachedRecipes; // Getter to access the cached recipes
 
@@ -35,5 +40,29 @@ class RecipeCubit extends Cubit<RecipeStates> {
     } catch (e) {
       emit(GetRecipiesErrorState(e.toString()));
     }
+  }
+
+  List<Recipe> get favoriteRecipes =>
+      _cachedRecipes.where((recipe) => isRecipeFavorite(recipe.id)).toList();
+  bool isRecipeFavorite(String recipeId) =>
+      _favoritesBox.get(recipeId, defaultValue: false) ?? false;
+
+  Future<void> toggleFavorite(String recipeId, bool isFavorite) async {
+    try {
+      emit(ToggleFavoriteLoadingState());
+      await _favoritesBox.put(recipeId, isFavorite);
+      final index =
+          _cachedRecipes.indexWhere((recipe) => recipe.id == recipeId);
+      if (index != -1) {
+        _cachedRecipes[index].favorites += isFavorite ? 1 : -1;
+      }
+      emit(ToggleFavoriteSuccessState());
+    } catch (e) {
+      emit(ToggleFavoriteErrorState(e.toString()));
+    }
+  }
+
+  void clearData() {
+    _cachedRecipes.clear();
   }
 }

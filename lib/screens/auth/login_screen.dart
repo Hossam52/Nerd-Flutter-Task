@@ -124,7 +124,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           CustomButton(
                             text: 'Login',
                             onPressed: () {
-                              Methods.navigateTo(context, HomeScreen());
+                              Methods.navigateTo(context, const HomeScreen(),
+                                  isReplacement: true);
+                              Methods.showSuccessSnackBar(
+                                  context, 'Welcome NERD\'s user');
                               if (formKey.currentState!.validate()) {
                                 AuthCubit.instance(context).login(
                                     emailController.text,

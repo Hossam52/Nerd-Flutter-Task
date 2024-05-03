@@ -83,7 +83,7 @@ class AuthTextField extends StatelessWidget {
                       borderColor: Colors.white54,
                       hint: hint,
                       validation: qValidator([
-                        if (isRequired) IsRequired('هذا الحقل مطلوب'),
+                        if (isRequired) IsRequired('This field is required'),
                         ...validationRules
                       ])),
             ),
