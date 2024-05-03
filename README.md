@@ -16,6 +16,24 @@ This project is a comprehensive Flutter application for browsing, managing, and 
 - **Offline Storage**: Recipes that users mark as favorites are saved locally, enabling offline viewing.
 - **DI**: Add depndancy injection in app and use `get_it` package for handling it.
 
+## Screenshots
+
+Below are some screenshots that illustrate various functionalities of the app:
+
+### Login Screen
+![Login Screen](/screenshots/login_screen.png)
+
+### Home Screen
+![Home Screen](/screenshots/home_screen.png)
+
+### Recipe Details
+
+![Recipe Details](/screenshots/recipe_details.png)
+![Recipe Details](/screenshots/recipe_details_2.png)
+
+### Favorites & Offline Storage
+![Favorites](/screenshots/favorite_recipes.png)
+
 ## Project Structure
 
 The project follows a clean architecture with the following key directories:
