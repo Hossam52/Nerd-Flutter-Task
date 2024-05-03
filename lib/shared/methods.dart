@@ -5,8 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class Methods {
   Methods._();
-  static Future<dynamic> navigateTo(BuildContext context, Widget widget) {
-    return Navigator.push(context, MaterialPageRoute(builder: (_) => widget));
+  static Future<dynamic> navigateTo(BuildContext context, Widget widget,
+      {bool isReplacement = false}) {
+    final materialPage = MaterialPageRoute(builder: (_) => widget);
+    if (isReplacement) {
+      return Navigator.pushReplacement(context, materialPage);
+    } else {
+      return Navigator.push(context, materialPage);
+    }
   }
 
   static void showErrorSnackBar(BuildContext context, String text,

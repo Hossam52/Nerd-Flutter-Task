@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nerd_hossam_task/cubits/recipe_cubit/recipe_cubit.dart';
 import 'package:nerd_hossam_task/models/recipe_model.dart';
 import 'package:nerd_hossam_task/screens/recipes/recipe_details/recipe_details_screen.dart';
 import 'package:nerd_hossam_task/shared/methods.dart';
+import 'package:nerd_hossam_task/shared/presentation/resourses/color_manager.dart';
 import 'package:nerd_hossam_task/shared/presentation/resourses/values.dart';
 import 'package:nerd_hossam_task/widgets/text_widget.dart';
 
@@ -89,18 +91,41 @@ class RecipeItem extends StatelessWidget {
   Widget _buildRecipeImage() {
     return Hero(
       tag: 'recipe_image_${recipe.id}',
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(recipe.image),
-            fit: BoxFit.cover,
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(recipe.image),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(AppSize.s14),
+                topRight: Radius.circular(AppSize.s14),
+              ),
+            ),
           ),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(AppSize.s14),
-            topRight: Radius.circular(AppSize.s14),
-          ),
-        ),
+          buildFavoriteIcon(),
+        ],
       ),
     );
+  }
+
+  Widget buildFavoriteIcon() {
+    return RecipeBlocBuilder(
+      builder: (context, state) {
+        final isFavorite =
+            RecipeCubit.instance(context).isRecipeFavorite(recipe.id);
+        return IconButton(
+          icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+          color: ColorManager.favoriteColor,
+          onPressed: () => toggleFavorite(context, !isFavorite),
+        );
+      },
+    );
+  }
+
+  void toggleFavorite(BuildContext context, bool newValue) {
+    RecipeCubit.instance(context).toggleFavorite(recipe.id, newValue);
   }
 }

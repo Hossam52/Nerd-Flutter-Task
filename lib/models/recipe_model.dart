@@ -17,7 +17,7 @@ class Recipe {
   final List<String> keywords;
   final List<String> products;
   final String proteins;
-  final int favorites;
+  int favorites;
   final int difficulty;
   final String description;
   final bool highlighted;

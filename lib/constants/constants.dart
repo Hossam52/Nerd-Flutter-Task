@@ -5,4 +5,6 @@ class Constants {
   // static const String APP_BASE_URL = 'http://10.0.2.2:8000/api';
   // static const String APP_BASE_URL = 'http://192.168.1.2:8000/api';
   static String? token;
+
+  static const String favoriteBox = 'favorites';
 }
