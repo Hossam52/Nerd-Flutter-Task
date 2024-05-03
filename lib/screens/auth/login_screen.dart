@@ -110,30 +110,32 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: passwordController);
                         }),
                         const RememberMeWidget(),
-                        if (kDebugMode)
-                          TextButton(
-                              onPressed: () async {
-                                await AuthCubit.instance(context).login(
-                                    'hossam.hassan.fcis@gmail.com', '123456');
-                              },
-                              child: const Text('Test')),
+                        TextButton(
+                            onPressed: () async {
+                              emailController.text =
+                                  'hossam.hassan.fcis@gmail.com';
+                              passwordController.text = '123456';
+                              await Future.delayed(
+                                  const Duration(milliseconds: 500));
+                              _login();
+                            },
+                            child: const Text('Valid credentials')),
+                        TextButton(
+                            onPressed: () async {
+                              emailController.text = 'hossam.hassan.fcis';
+                              passwordController.text = '123456';
+                              await Future.delayed(
+                                  const Duration(milliseconds: 500));
+                              _login();
+                            },
+                            child: const Text('Invalid credentials')),
                         const SizedBox(height: 50),
                         if (state is LoginLoadingState)
                           const DefaultLoader()
                         else
                           CustomButton(
                             text: 'Login',
-                            onPressed: () {
-                              Methods.navigateTo(context, const HomeScreen(),
-                                  isReplacement: true);
-                              Methods.showSuccessSnackBar(
-                                  context, 'Welcome NERD\'s user');
-                              if (formKey.currentState!.validate()) {
-                                AuthCubit.instance(context).login(
-                                    emailController.text,
-                                    passwordController.text);
-                              }
-                            },
+                            onPressed: _login,
                             backgroundColor: ColorManager.accentColor,
                           ),
                       ],
@@ -146,6 +148,15 @@ class _LoginScreenState extends State<LoginScreen> {
         }),
       ),
     );
+  }
+
+  void _login() {
+    if (formKey.currentState!.validate()) {
+      AuthCubit.instance(context)
+          .login(emailController.text, passwordController.text);
+      Methods.showSuccessSnackBar(context, 'Welcome NERD\'s user');
+      Methods.navigateTo(context, const HomeScreen(), isReplacement: true);
+    }
   }
 
   Future<void> _loadCachedData() async {

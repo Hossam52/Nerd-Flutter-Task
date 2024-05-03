@@ -53,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               RecipeCubit.instance(context).clearData();
               AuthCubit.instance(context).logout();
+              Methods.showSuccessSnackBar(
+                  context, 'User logged out successfully');
             },
             tooltip: 'Logout',
             backgroundColor: ColorManager.error,
