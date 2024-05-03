@@ -23,11 +23,11 @@ class RecipeCubit extends Cubit<RecipeStates> {
   Future<void> getRecipies() async {
     try {
       emit(GetRecipiesLoadingState());
-      if (_cachedRecipes.isNotEmpty) {
-        emit(GetRecipiesSuccessState(
-            _cachedRecipes)); // Emit loaded state with cached recipes if available
-        return;
-      }
+      // if (_cachedRecipes.isNotEmpty) {
+      //   emit(GetRecipiesSuccessState(
+      //       _cachedRecipes)); // Emit loaded state with cached recipes if available
+      //   return;
+      // }
       final recipes = await remoteService.fetchRecipes();
 
       _cachedRecipes = recipes;

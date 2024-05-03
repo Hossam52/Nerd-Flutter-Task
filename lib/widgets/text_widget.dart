@@ -7,7 +7,8 @@ class TextWidget extends StatelessWidget {
       this.fontSize,
       this.color,
       this.fontWeight,
-      this.textAlign})
+      this.textAlign,
+      this.maxLines})
       : super(key: key);
 
   final String label;
@@ -15,11 +16,13 @@ class TextWidget extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
     return Text(label,
         textAlign: textAlign ?? TextAlign.start,
-        style: Theme.of(context).textTheme.caption!.copyWith(
+        maxLines: maxLines,
+        style: Theme.of(context).textTheme.bodySmall!.copyWith(
               color: color,
               fontSize: fontSize,
               fontWeight: fontWeight,
